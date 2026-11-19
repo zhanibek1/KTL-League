@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>КТЛ ЛИГА — Официальный портал</title>
+<style>
+  :root {
+    --bg-main: #060913;
+    --bg-card: rgba(17, 25, 54, 0.72);
+    --bg-card-solid: #111936;
+    --bg-elevated: rgba(26, 38, 78, 0.85);
+    --border-glass: rgba(255, 255, 255, 0.09);
+    --border-accent: rgba(0, 245, 160, 0.35);
+    --accent: #00f5a0;
+    --accent-2: #00d9f5;
+    --gold: #ffd166;
+    --danger: #ff4d6d;
+    --warning: #ffb703;
+    --text-main: #f4f7ff;
+    --text-muted: #8c9ac4;
+    --shadow-glow: 0 8px 32px rgba(0, 245, 160, 0.12);
+    --radius-lg: 20px;
+    --radius-md: 14px;
+    --radius-sm: 10px;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+  }
+
+  body {
+    background: var(--bg-main);
+    background-image:
+      radial-gradient(circle at 15% 5%, rgba(0, 245, 160, 0.11) 0%, transparent 40%),
+      radial-gradient(circle at 85% 15%, rgba(0, 217, 245, 0.10) 0%, transparent 45%),
+      radial-gradient(circle at 50% 90%, rgba(99, 102, 241, 0.10) 0%, transparent 50%);
+    color: var(--text-main);
+    min-height: 100vh;
+    padding-bottom: 88px;
+    overflow-x: hidden;
+  }
+
+  /* Header */
+  .topbar {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(6, 9, 19, 0.82);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border-glass);
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .brand-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 11px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 19px;
+    box-shadow: 0 0 18px rgba(0, 245, 160, 0.35);
+    color: #041510;
+    font-weight: 900;
+  }
+
+  .brand-text h1 {
+    font-size: 17px;
+    font-weight: 800;
+    letter-spacing: 0.6px;
+    background: linear-gradient(90deg, #ffffff, #b8f7e0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .brand-text span {
+    font-size: 11px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    display: block;
+  }
+
+  .admin-badge-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-glass);
+    color: var(--text-main);
+    padding: 7px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s;
+  }
+
+  .admin-badge-btn.active {
+    background: rgba(0, 245, 160, 0.16);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Container */
+  .container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 16px;
+  }
+
+  .tab-view {
+    display: none;
+    animation: fadeSlide 0.25s ease;
+  }
+
+  .tab-view.active {
+    display: block;
+  }
+
+  @keyframes fadeSlide {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Cards & Glassmorphism */
+  .card {
+    background: var(--bg-card);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-lg);
+    padding: 16px;
+    margin-bottom: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.28);
+  }
+
+  .card-hero {
+    background: linear-gradient(145deg, rgba(19, 34, 74, 0.92), rgba(10, 17, 40, 0.95));
+    border: 1px solid var(--border-accent);
+    box-shadow: var(--shadow-glow);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-hero::before {
+    content: "";
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(0, 245, 160, 0.22), transparent 70%);
+    pointer-events: none;
+  }
+
+  .section-title {
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+  }
+
+  .section-title span.tag {
+    font-size: 11px;
+    padding: 3px 8px;
+    border-radius: 99px;
+    background: rgba(0, 245, 160, 0.14);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Countdown */
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+  }
+
+  .cd-box {
+    background: rgba(6, 9, 19, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 8px 4px;
+    text-align: center;
+  }
+
+  .cd-val {
+    font-size: 20px;
+    font-weight: 800;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cd-lbl {
+    font-size: 10px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+
+  /* Team Avatars */
+  .team-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    object-fit: cover;
+    background: linear-gradient(135deg, #1d2b5c, #101836);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 14px;
+    color: var(--accent);
+    flex-shrink: 0;
+  }
+
+  .team-logo-lg {
+    width: 54px;
+    height: 54px;
+    border-radius: 16px;
+    font-size: 18px;
+  }
+
+  .team-logo-sm {
+    width: 26px;
+    height: 26px;
+    border-radius: 8px;
+    font-size: 11px;
+  }
+
+  /* Match Row */
+  .match-row {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.2s;
+  }
+
+  .match-row:active {
+    transform: scale(0.985);
+  }
+
+  .match-row:hover {
+    border-color: rgba(0, 245, 160, 0.35);
+  }
+
+  .match-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .match-teams {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .m-team {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 13px;
+  }
+
+  .m-team.right {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .m-score {
+    background: rgba(6, 9, 19, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-weight: 900;
+    font-size: 15px;
+    letter-spacing: 1px;
+    color: #fff;
+    min-width: 64px;
+    text-align: center;
+  }
+
+  .m-score.live {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* Table */
+  .standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+
+  .standings-table th {
+    text-align: left;
+    color: var(--text-muted);
+    font-weight: 600;
+    padding: 8px 4px;
+    border-bottom: 1px solid var(--border-glass);
+    font-size: 11px;
+  }
+
+  .standings-table td {
+    padding: 10px 4px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  }
+
+  .pos-pill {
+    width: 22px;
+    height: 22px;
+    border-radius: 7px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 11px;
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .pos-1 { background: rgba(255, 209, 102, 0.22); color: var(--gold); border: 1px solid rgba(255, 209, 102, 0.4); }
+  .pos-2 { background: rgba(0, 245, 160, 0.16); color: var(--accent); }
+  .pos-3 { background: rgba(0, 217, 245, 0.16); color: var(--accent-2); }
+  .pos-4 { background: rgba(255, 255, 255, 0.1); color: #fff; }
+
+  /* Playoff Bracket */
+  .bracket-wrap {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .bracket-stage {
+    background: rgba(6, 9, 19, 0.5);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--radius-md);
+    padding: 12px;
+  }
+
+  .bracket-stage-title {
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--gold);
+    margin-bottom: 8px;
+  }
+
+  .bracket-match {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.04);
+    padding: 8px 10px;
+    border-radius: 10px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  /* News Cards */
+  .news-item {
+    border-left: 3px solid var(--accent);
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 10px;
+  }
+
+  .news-date {
+    font-size: 10px;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+
+  .news-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .news-body {
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  /* Forms & Buttons */
+  .btn {
+    border: none;
+    border-radius: 12px;
+    padding: 11px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    transition: 0.18s;
+  }
+
+  .btn:active { transform: scale(0.97); }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--accent), #00c982);
+    color: #031a11;
+    box-shadow: 0 4px 16px rgba(0, 245, 160, 0.25);
+  }
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid var(--border-glass);
+  }
+  .btn-gold {
+    background: linear-gradient(135deg, #ffd166, #f4a261);
+    color: #1f1300;
+  }
+  .btn-danger {
+    background: rgba(255, 77, 109, 0.16);
+    color: var(--danger);
+    border: 1px solid rgba(255, 77, 109, 0.35);
+  }
+  .btn-sm { padding: 6px 10px; font-size: 11px; border-radius: 9px; }
+  .btn-block { width: 100%; }
+
+  input, select, textarea {
+    width: 100%;
+    background: rgba(6, 9, 19, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 11px;
+    padding: 10px 12px;
+    color: #fff;
+    font-size: 13px;
+    margin-bottom: 10px;
+    outline: none;
+  }
+
+  input:focus, select:focus, textarea:focus {
+    border-color: var(--accent);
+  }
+
+  label {
+    display: block;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  /* Bottom Navigation */
+  .bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(9, 13, 28, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-top: 1px solid var(--border-glass);
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding: 8px 4px calc(8px + env(safe-area-inset-bottom));
+    z-index: 60;
+  }
+
+  .nav-item {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 4px 0;
+    transition: 0.2s;
+  }
+
+  .nav-item .ico {
+    font-size: 18px;
+    transition: transform 0.2s;
+  }
+
+  .nav-item.active {
+    color: var(--accent);
+  }
+
+  .nav-item.active .ico {
+    transform: translateY(-2px);
+  }
+
+  /* Modals */
+  .modal-backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 4, 12, 0.82);
+    backdrop-filter: blur(8px);
+    z-index: 100;
+    display: none;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .modal-backdrop.open {
+    display: flex;
+  }
+
+  .modal-sheet {
+    background: #0d142c;
+    border: 1px solid var(--border-glass);
+    border-radius: 24px 24px 0 0;
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    padding: 20px 18px 32px;
+    animation: slideUp 0.25s ease;
+  }
+
+  @keyframes slideUp {
+    from { transform: translateY(100%); }
+    to { transform: translateY(0); }
+  }
+
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-glass);
+  }
+
+  .close-btn {
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: #fff;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  /* Player Pill & Stats */
+  .player-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+
+  .player-row:hover {
+    border-color: rgba(0, 245, 160, 0.3);
+  }
+
+  .stat-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .stat-box {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    padding: 10px 6px;
+    text-align: center;
+  }
+
+  .stat-box .num {
+    font-size: 18px;
+    font-weight: 800;
+    color: var(--accent);
+  }
+
+  .stat-box .lbl {
+    font-size: 10px;
+    color: var(--text-muted);
+    margin-top: 2px;
+  }
+
+  .pill-tabs {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    margin-bottom: 12px;
+  }
+
+  .pill-tab {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+    padding: 7px 13px;
+    border-radius: 99px;
+    font-size: 12px;
+    font-weight: 700;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .pill-tab.active {
+    background: var(--accent);
+    color: #031a11;
+    border-color: var(--accent);
+  }
+
+  .event-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 10px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .min-badge {
+    background: rgba(0, 245, 160, 0.16);
+    color: var(--accent);
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 6px;
+    font-size: 11px;
+    margin-right: 8px;
+  }
+
+  .social-preview-img {
+    width: 100%;
+    border-radius: 16px;
+    border: 1px solid var(--border-accent);
+    margin-top: 10px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">
+    <div class="brand-logo">⚽</div>
+    <div class="brand-text">
+      <h1>КТЛ ЛИГА</h1>
+      <span>SEASON 2026 • OFFICIAL</span>
+    </div>
+  </div>
+  <button id="adminToggleBtn" class="admin-badge-btn" onclick="toggleAdminAuth()">
+    <span id="adminLockIcon">🔒</span> <span id="adminBtnLabel">Админ</span>
+  </button>
+</header>
+
+<main class="container">
+  <!-- TAB 1: HOME -->
+  <section id="tab-home" class="tab-view active">
+    <div id="countdownHero" class="card card-hero"></div>
+
+    <div class="card">
+      <div class="section-title">
+        <span>📰 Новости лиги</span>
+        <span class="tag">LIVE</span>
+      </div>
+      <div id="homeNewsList"></div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">
+        <span>🔥 Последние результаты</span>
+        <button class="btn btn-secondary btn-sm" onclick="switchTab('matches')">Все матчи</button>
+      </div>
+      <div id="homeRecentMatches"></div>
+    </div>
+  </section>
+
+  <!-- TAB 2: TABLE & PLAYOFF -->
+  <section id="tab-table" class="tab-view">
+    <div class="card">
+      <div class="section-title">
+        <span>🏆 Турнирная таблица</span>
+        <span class="tag">ТОП-4 → ПЛЕЙ-ОФФ</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="standings-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Команда</th>
+              <th>И</th>
+              <th>В</th>
+              <th>Н</th>
+              <th>П</th>
+              <th>З-П</th>
+              <th>О</th>
+            </tr>
+          </thead>
+          <tbody id="standingsBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">
+        <span>⚡ Сетка плей-офф</span>
+        <button id="btnGenPlayoff" class="btn btn-gold btn-sm" style="display:none;" onclick="generatePlayoffFromTable()">Сформировать из Топ-4</button>
+      </div>
+      <div id="playoffBracketContainer" class="bracket-wrap"></div>
+    </div>
+  </section>
+
+  <!-- TAB 3: MATCHES -->
+  <section id="tab-matches" class="tab-view">
+    <div class="pill-tabs">
+      <button class="pill-tab active" onclick="filterMatches('all', this)">Все матчи</button>
+      <button class="pill-tab" onclick="filterMatches('upcoming', this)">Предстоящие</button>
+      <button class="pill-tab" onclick="filterMatches('played', this)">Сыгранные</button>
+      <button class="pill-tab" onclick="filterMatches('playoff', this)">Плей-офф</button>
+    </div>
+    <div id="matchesListContainer"></div>
+  </section>
+
+  <!-- TAB 4: TEAMS & LEADERS -->
+  <section id="tab-leaders" class="tab-view">
+    <div class="pill-tabs">
+      <button class="pill-tab active" onclick="switchSubLeaders('goals', this)">⚽ Бомбардиры</button>
+      <button class="pill-tab" onclick="switchSubLeaders('assists', this)">👟 Ассистенты</button>
+      <button class="pill-tab" onclick="switchSubLeaders('mvp', this)">⭐ MVP</button>
+      <button class="pill-tab" onclick="switchSubLeaders('teams', this)">🛡️ Команды</button>
+    </div>
+    <div id="leadersContainer"></div>
+  </section>
+
+  <!-- TAB 5: ADMIN -->
+  <section id="tab-admin" class="tab-view">
+    <div id="adminLockedNotice" class="card" style="text-align:center; padding:30px 16px;">
+      <div style="font-size:42px; margin-bottom:10px;">🔐</div>
+      <h3>Панель администратора</h3>
+      <p style="color:var(--text-muted); font-size:13px; margin:8px 0 16px;">Войдите с паролем администратора, чтобы управлять командами, жеребьёвкой, матчами и новостями (пароль по умолчанию: <b>ktl2026</b>)</p>
+      <button class="btn btn-primary" onclick="toggleAdminAuth()">Войти в режим админа</button>
+    </div>
+
+    <div id="adminPanelContent" style="display:none;">
+      <div class="pill-tabs">
+        <button class="pill-tab active" onclick="switchAdminSub('draft', this)">🎲 Жеребьёвка</button>
+        <button class="pill-tab" onclick="switchAdminSub('matches_adm', this)">⚽ Матчи</button>
+        <button class="pill-tab" onclick="switchAdminSub('teams_adm', this)">🛡️ Команды и лого</button>
+        <button class="pill-tab" onclick="switchAdminSub('news_adm', this)">📰 Новости</button>
+      </div>
+
+      <!-- ADMIN: DRAFT BY LEVELS -->
+      <div id="adm-draft" class="card">
+        <div class="section-title">
+          <span>🎲 Жеребьёвка игроков по уровням</span>
+          <span class="tag">УРОВНИ 1–8</span>
+        </div>
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">
+          Вставьте список строками: <b>Имя Фамилия, класс, уровень</b> (например: <code>Данияр Ахметов, 9, 2</code>). Игроки распределятся по командам поровну по силе (по одному из каждого уровня 1–8).
+        </p>
+        <textarea id="draftInput" rows="8" placeholder="Данияр Ахметов, 9, 1&#10;Алихан Сериков, 10, 1&#10;Нурлан Касымов, 9, 2&#10;Ерасыл Болатов, 11, 2"></textarea>
+        <div style="display:flex; gap:8px; margin-bottom:10px;">
+          <select id="draftMode">
+            <option value="append">Добавить к текущим составам</option>
+            <option value="replace">Очистить составы и распределить заново</option>
+          </select>
+        </div>
+        <button class="btn btn-primary btn-block" onclick="runBalancedDraft()">⚡ Провести честную жеребьёвку</button>
+      </div>
+
+      <!-- ADMIN: ADD MATCH -->
+      <div id="adm-matches_adm" class="card" style="display:none;">
+        <div class="section-title"><span>➕ Создать новый матч</span></div>
+        <label>Стадия</label>
+        <select id="newMatchStage">
+          <option value="group">Регулярный чемпионат</option>
+          <option value="sf1">Плей-офф: Полуфинал 1</option>
+          <option value="sf2">Плей-офф: Полуфинал 2</option>
+          <option value="third">Плей-офф: Матч за 3-е место</option>
+          <option value="final">Плей-офф: ФИНАЛ</option>
+        </select>
+        <label>Команда хозяев</label>
+        <select id="newMatchHome"></select>
+        <label>Команда гостей</label>
+        <select id="newMatchAway"></select>
+        <label>Дата и время матча (для обратного отсчёта)</label>
+        <input type="datetime-local" id="newMatchDate">
+        <button class="btn btn-primary btn-block" onclick="createMatch()">Создать матч</button>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:10px;">Чтобы внести голы, минуты, карточки, MVP или завершить матч — нажмите на нужный матч во вкладке «Матчи».</p>
+      </div>
+
+      <!-- ADMIN: TEAMS & LOGOS -->
+      <div id="adm-teams_adm" class="card" style="display:none;">
+        <div class="section-title"><span>🛡️ Управление командами</span></div>
+        <div style="display:flex; gap:8px; margin-bottom:12px;">
+          <input type="text" id="newTeamName" placeholder="Название новой команды" style="margin-bottom:0;">
+          <button class="btn btn-primary" onclick="addNewTeam()">+</button>
+        </div>
+        <div id="adminTeamsList"></div>
+      </div>
+
+      <!-- ADMIN: NEWS -->
+      <div id="adm-news_adm" class="card" style="display:none;">
+        <div class="section-title"><span>📰 Добавить новость</span></div>
+        <label>Заголовок</label>
+        <input type="text" id="newsTitleInput" placeholder="Например: Старт весеннего кубка КТЛ!">
+        <label>Текст новости</label>
+        <textarea id="newsBodyInput" rows="4" placeholder="Подробности тура, дисквалификации или анонсы..."></textarea>
+        <button class="btn btn-primary btn-block" onclick="addNews()">Опубликовать новость</button>
+        <div id="adminNewsManage" style="margin-top:14px;"></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="nav-item active" data-tab="home" onclick="switchTab('home')">
+    <span class="ico">🏠</span>
+    <span>Главная</span>
+  </button>
+  <button class="nav-item" data-tab="table" onclick="switchTab('table')">
+    <span class="ico">🏆</span>
+    <span>Таблица</span>
+  </button>
+  <button class="nav-item" data-tab="matches" onclick="switchTab('matches')">
+    <span class="ico">⚽</span>
+    <span>Матчи</span>
+  </button>
+  <button class="nav-item" data-tab="leaders" onclick="switchTab('leaders')">
+    <span class="ico">📊</span>
+    <span>Лидеры</span>
+  </button>
+  <button class="nav-item" data-tab="admin" onclick="switchTab('admin')">
+    <span class="ico">⚙️</span>
+    <span>Админ</span>
+  </button>
+</nav>
+
+<!-- MATCH DETAIL & EDITOR MODAL -->
+<div id="matchModal" class="modal-backdrop" onclick="if(event.target===this) closeModal('matchModal')">
+  <div class="modal-sheet" id="matchModalContent"></div>
+</div>
+
+<!-- PLAYER PROFILE MODAL -->
+<div id="playerModal" class="modal-backdrop" onclick="if(event.target===this) closeModal('playerModal')">
+  <div class="modal-sheet" id="playerModalContent"></div>
+</div>
+
+<!-- TEAM ROSTER MODAL -->
+<div id="teamModal" class="modal-backdrop" onclick="if(event.target===this) closeModal('teamModal')">
+  <div class="modal-sheet" id="teamModalContent"></div>
+</div>
+
+<canvas id="shareCanvas" width="1080" height="1350" style="display:none;"></canvas>
+
+<script>
+const STORAGE_KEY = 'ktl_liga_pro_v2';
+const ADMIN_PASS = 'ktl2026';
+
+let isAdmin = false;
+let currentMatchFilter = 'all';
+let currentLeaderTab = 'goals';
+
+const defaultState = {
+  teams: [
+    { id: 't1', name: 'Барсы 11А', logo: '' },
+    { id: 't2', name: 'Тулпар 10Б', logo: '' },
+    { id: 't3', name: 'Алаш 9А', logo: '' },
+    { id: 't4', name: 'Кайрат 11Б', logo: '' }
+  ],
+  players: [
+    { id: 'p1', name: 'Данияр Ахметов', grade: '11', level: 1, teamId: 't1' },
+    { id: 'p2', name: 'Санжар Омаров', grade: '11', level: 2, teamId: 't1' },
+    { id: 'p3', name: 'Алихан Сериков', grade: '10', level: 1, teamId: 't2' },
+    { id: 'p4', name: 'Темирлан Нуров', grade: '10', level: 3, teamId: 't2' },
+    { id: 'p5', name: 'Нурлан Касымов', grade: '9', level: 1, teamId: 't3' },
+    { id: 'p6', name: 'Диас Жумабаев', grade: '9', level: 2, teamId: 't3' },
+    { id: 'p7', name: 'Ерасыл Болатов', grade: '11', level: 1, teamId: 't4' },
+    { id: 'p8', name: 'Арман Смагулов', grade: '11', level: 2, teamId: 't4' }
+  ],
+  matches: [
+    {
+      id: 'm1',
+      stage: 'group',
+      homeId: 't1',
+      awayId: 't2',
+      date: new Date(Date.now() - 86400000 * 2).toISOString().slice(0, 16),
+      played: true,
+      mvpId: 'p1',
+      events: [
+        { id: 'e1', min: 12, type: 'goal', teamId: 't1', playerId: 'p1', assistId: 'p2' },
+        { id: 'e2', min: 27, type: 'goal', teamId: 't2', playerId: 'p3', assistId: '' },
+        { id: 'e3', min: 39, type: 'yellow', teamId: 't2', playerId: 'p4', assistId: '' },
+        { id: 'e4', min: 44, type: 'goal', teamId: 't1', playerId: 'p1', assistId: '' }
+      ]
+    },
+    {
+      id: 'm2',
+      stage: 'group',
+      homeId: 't3',
+      awayId: 't4',
+      date: new Date(Date.now() + 86400000 * 1.5).toISOString().slice(0, 16),
+      played: false,
+      mvpId: '',
+      events: []
+    }
+  ],
+  news: [
+    {
+      id: 'n1',
+      date: 'Сегодня',
+      title: 'Добро пожаловать в обновлённую КТЛ Лигу!',
+      body: 'Теперь доступны жеребьёвка по 8 уровням силы, профили игроков, автоматические дисквалификации и генерация карточек матчей для соцсетей.'
+    },
+    {
+      id: 'n2',
+      date: 'Вчера',
+      title: 'Открытие сезона: Барсы 11А вырвали победу',
+      body: 'Дубль Данияра Ахметова принёс команде первые 3 очка в напряжённом дерби против Тулпар 10Б.'
+    }
+  ]
+};
+
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return JSON.parse(JSON.stringify(defaultState));
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  renderAll();
+}
+
+function getTeam(id) {
+  return state.teams.find(t => t.id === id) || { id, name: 'Команда ?', logo: '' };
+}
+
+function getPlayer(id) {
+  return state.players.find(p => p.id === id);
+}
+
+function renderTeamAvatar(team, sizeClass = '') {
+  if (team && team.logo) {
+    return `<img src="${team.logo}" class="team-logo ${sizeClass}" alt="">`;
+  }
+  const initials = (team?.name || 'КТ').slice(0, 2).toUpperCase();
+  return `<div class="team-logo ${sizeClass}">${initials}</div>`;
+}
+
+// DISQUALIFICATION ENGINE:
+// Red card or 2 yellows in a single match => suspended (🚫) until that team plays its NEXT played match!
+function getSuspendedPlayerIds() {
+  const suspended = new Set();
+  // Sort played matches chronologically by date
+  const playedMatches = state.matches
+    .filter(m => m.played)
+    .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+
+  state.teams.forEach(team => {
+    const teamMatches = playedMatches.filter(m => m.homeId === team.id || m.awayId === team.id);
+    if (teamMatches.length === 0) return;
+    const lastMatch = teamMatches[teamMatches.length - 1];
+    // Check events in lastMatch for this team's players
+    const yellowCounts = {};
+    (lastMatch.events || []).forEach(ev => {
+      if (ev.teamId !== team.id || !ev.playerId) return;
+      if (ev.type === 'red') {
+        suspended.add(ev.playerId);
+      } else if (ev.type === 'yellow') {
+        yellowCounts[ev.playerId] = (yellowCounts[ev.playerId] || 0) + 1;
+        if (yellowCounts[ev.playerId] >= 2) {
+          suspended.add(ev.playerId);
+        }
+      }
+    });
+  });
+  return suspended;
+}
+
+function getMatchScore(match) {
+  let home = 0, away = 0;
+  (match.events || []).forEach(ev => {
+    if (ev.type === 'goal') {
+      if (ev.teamId === match.homeId) home++;
+      else if (ev.teamId === match.awayId) away++;
+    }
+  });
+  return { home, away };
+}
+
+function computeStandings() {
+  const map = {};
+  state.teams.forEach(t => {
+    map[t.id] = { team: t, p: 0, w: 0, d: 0, l: 0, gf: 0, ga: 0, pts: 0 };
+  });
+
+  state.matches.filter(m => m.played && m.stage === 'group').forEach(m => {
+    const { home, away } = getMatchScore(m);
+    if (!map[m.homeId] || !map[m.awayId]) return;
+    const h = map[m.homeId], a = map[m.awayId];
+    h.p++; a.p++;
+    h.gf += home; h.ga += away;
+    a.gf += away; a.ga += home;
+    if (home > away) { h.w++; h.pts += 3; a.l++; }
+    else if (home < away) { a.w++; a.pts += 3; h.l++; }
+    else { h.d++; a.d++; h.pts += 1; a.pts += 1; }
+  });
+
+  return Object.values(map).sort((a, b) =>
+    b.pts - a.pts || (b.gf - b.ga) - (a.gf - a.ga) || b.gf - a.gf
+  );
+}
+
+function computePlayerStats(playerId) {
+  let goals = 0, assists = 0, yellows = 0, reds = 0, matches = 0, mvps = 0;
+  const player = getPlayer(playerId);
+  if (!player) return { goals, assists, yellows, reds, matches, mvps };
+
+  state.matches.filter(m => m.played).forEach(m => {
+    if (m.homeId === player.teamId || m.awayId === player.teamId) {
+      matches++;
+    }
+    if (m.mvpId === playerId) mvps++;
+    (m.events || []).forEach(ev => {
+      if (ev.type === 'goal') {
+        if (ev.playerId === playerId) goals++;
+        if (ev.assistId === playerId) assists++;
+      } else if (ev.type === 'yellow' && ev.playerId === playerId) {
+        yellows++;
+      } else if (ev.type === 'red' && ev.playerId === playerId) {
+        reds++;
+      }
+    });
+  });
+  return { goals, assists, yellows, reds, matches, mvps };
+}
+
+// NAVIGATION
+function switchTab(tabName) {
+  document.querySelectorAll('.tab-view').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + tabName).classList.add('active');
+  document.querySelector(`.nav-item[data-tab="${tabName}"]`).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleAdminAuth() {
+  if (isAdmin) {
+    isAdmin = false;
+    updateAdminUI();
+    return;
+  }
+  const pass = prompt('Введите пароль администратора (по умолчанию: ktl2026):');
+  if (pass === ADMIN_PASS) {
+    isAdmin = true;
+    updateAdminUI();
+    switchTab('admin');
+  } else if (pass !== null) {
+    alert('Неверный пароль!');
+  }
+}
+
+function updateAdminUI() {
+  const btn = document.getElementById('adminToggleBtn');
+  document.getElementById('adminLockIcon').textContent = isAdmin ? '🔓' : '🔒';
+  document.getElementById('adminBtnLabel').textContent = isAdmin ? 'Выйти' : 'Админ';
+  btn.classList.toggle('active', isAdmin);
+  document.getElementById('adminLockedNotice').style.display = isAdmin ? 'none' : 'block';
+  document.getElementById('adminPanelContent').style.display = isAdmin ? 'block' : 'none';
+  document.getElementById('btnGenPlayoff').style.display = isAdmin ? 'inline-flex' : 'none';
+  renderAll();
+}
+
+function switchAdminSub(subId, btnEl) {
+  ['draft', 'matches_adm', 'teams_adm', 'news_adm'].forEach(id => {
+    document.getElementById('adm-' + id).style.display = id === subId ? 'block' : 'none';
+  });
+  btnEl.parentElement.querySelectorAll('.pill-tab').forEach(b => b.classList.remove('active'));
+  btnEl.classList.add('active');
+}
+
+// COUNTDOWN RENDER
+function renderCountdown() {
+  const container = document.getElementById('countdownHero');
+  const now = Date.now();
+  const upcomingWithDate = state.matches
+    .filter(m => !m.played && m.date && new Date(m.date).getTime() > now)
+    .sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  if (upcomingWithDate.length === 0) {
+    container.innerHTML = `
+      <div style="display:flex; align-items:center; justify-content:space-between;">
+        <div>
+          <div style="font-size:11px; color:var(--accent); font-weight:700; text-transform:uppercase;">КТЛ ЛИГА • СЕЗОН 2026</div>
+          <h2 style="font-size:18px; margin-top:4px;">Все матчи тура сыграны</h2>
+          <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">Следите за таблицей лидеров и расписанием плей-офф</p>
+        </div>
+        <div style="font-size:36px;">🏆</div>
+      </div>
+    `;
+    return;
+  }
+
+  const next = upcomingWithDate[0];
+  const home = getTeam(next.homeId);
+  const away = getTeam(next.awayId);
+  const diff = Math.max(0, new Date(next.date).getTime() - now);
+  const days = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins = Math.floor((diff % 3600000) / 60000);
+  const secs = Math.floor((diff % 60000) / 1000);
+
+  const stageLabel = {
+    group: 'БЛИЖАЙШИЙ МАТЧ ТУРА',
+    sf1: 'ПОЛУФИНАЛ 1',
+    sf2: 'ПОЛУФИНАЛ 2',
+    third: 'МАТЧ ЗА 3-Е МЕСТО',
+    final: 'ГРАНД-ФИНАЛ'
+  }[next.stage] || 'БЛИЖАЙШИЙ МАТЧ';
+
+  container.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+      <span style="font-size:11px; font-weight:800; color:var(--accent); letter-spacing:0.6px;">⏱ ${stageLabel}</span>
+      <span style="font-size:11px; color:var(--text-muted);">${formatMatchDate(next.date)}</span>
+    </div>
+    <div class="match-teams" onclick="openMatchModal('${next.id}')" style="cursor:pointer;">
+      <div class="m-team">
+        ${renderTeamAvatar(home)}
+        <span>${home.name}</span>
+      </div>
+      <div class="m-score live">VS</div>
+      <div class="m-team right">
+        <span>${away.name}</span>
+        ${renderTeamAvatar(away)}
+      </div>
+    </div>
+    <div class="countdown-grid">
+      <div class="cd-box"><div class="cd-val">${String(days).padStart(2,'0')}</div><div class="cd-lbl">Дней</div></div>
+      <div class="cd-box"><div class="cd-val">${String(hours).padStart(2,'0')}</div><div class="cd-lbl">Часов</div></div>
+      <div class="cd-box"><div class="cd-val">${String(mins).padStart(2,'0')}</div><div class="cd-lbl">Минут</div></div>
+      <div class="cd-box"><div class="cd-val">${String(secs).padStart(2,'0')}</div><div class="cd-lbl">Секунд</div></div>
+    </div>
+  `;
+}
+
+setInterval(renderCountdown, 1000);
+
+function formatMatchDate(dt) {
+  if (!dt) return 'Дата не задана';
+  const d = new Date(dt);
+  if (isNaN(d.getTime())) return dt;
+  return d.toLocaleDateString('ru-RU', { day: '2-digit', month: 'short' }) + ' • ' +
+         d.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit' });
+}
+
+// RENDER HOME
+function renderHome() {
+  renderCountdown();
+  const newsEl = document.getElementById('homeNewsList');
+  const latestThree = state.news.slice(0, 3);
+  newsEl.innerHTML = latestThree.length
+    ? latestThree.map(n => `
+      <div class="news-item">
+        <div class="news-date">${n.date}</div>
+        <div class="news-title">${escapeHtml(n.title)}</div>
+        <div class="news-body">${escapeHtml(n.body)}</div>
+      </div>
+    `).join('')
+    : '<p style="color:var(--text-muted); font-size:12px;">Новостей пока нет.</p>';
+
+  const recentPlayed = state.matches.filter(m => m.played).slice(-3).reverse();
+  document.getElementById('homeRecentMatches').innerHTML = recentPlayed.length
+    ? recentPlayed.map(m => renderMatchCardHtml(m)).join('')
+    : '<p style="color:var(--text-muted); font-size:12px;">Сыгранных матчей пока нет.</p>';
+}
+
+// RENDER TABLE & PLAYOFF
+function renderTableAndPlayoff() {
+  const rows = computeStandings();
+  document.getElementById('standingsBody').innerHTML = rows.map((r, idx) => `
+    <tr onclick="openTeamModal('${r.team.id}')" style="cursor:pointer;">
+      <td><span class="pos-pill pos-${idx + 1}">${idx + 1}</span></td>
+      <td>
+        <div style="display:flex; align-items:center; gap:8px; font-weight:700;">
+          ${renderTeamAvatar(r.team, 'team-logo-sm')}
+          <span>${escapeHtml(r.team.name)}</span>
+        </div>
+      </td>
+      <td>${r.p}</td>
+      <td>${r.w}</td>
+      <td>${r.d}</td>
+      <td>${r.l}</td>
+      <td>${r.gf}-${r.ga}</td>
+      <td style="font-weight:900; color:var(--accent);">${r.pts}</td>
+    </tr>
+  `).join('');
+
+  // Playoff bracket: Semifinals -> Final, and 3rd place match at bottom
+  const sf1 = state.matches.find(m => m.stage === 'sf1');
+  const sf2 = state.matches.find(m => m.stage === 'sf2');
+  const finalM = state.matches.find(m => m.stage === 'final');
+  const thirdM = state.matches.find(m => m.stage === 'third');
+
+  const renderSlot = (title, match, placeholder) => {
+    if (!match) {
+      return `
+        <div class="bracket-stage">
+          <div class="bracket-stage-title">${title}</div>
+          <div style="font-size:12px; color:var(--text-muted);">${placeholder}</div>
+        </div>
+      `;
+    }
+    const h = getTeam(match.homeId), a = getTeam(match.awayId);
+    const sc = match.played ? getMatchScore(match) : null;
+    return `
+      <div class="bracket-stage">
+        <div class="bracket-stage-title">${title}</div>
+        <div class="bracket-match" onclick="openMatchModal('${match.id}')">
+          <div style="display:flex; align-items:center; gap:6px;">
+            ${renderTeamAvatar(h, 'team-logo-sm')} <span>${escapeHtml(h.name)}</span>
+          </div>
+          <span style="color:var(--accent); font-weight:800;">${sc ? sc.home : '-'}</span>
+        </div>
+        <div class="bracket-match" onclick="openMatchModal('${match.id}')" style="margin-bottom:0;">
+          <div style="display:flex; align-items:center; gap:6px;">
+            ${renderTeamAvatar(a, 'team-logo-sm')} <span>${escapeHtml(a.name)}</span>
+          </div>
+          <span style="color:var(--accent); font-weight:800;">${sc ? sc.away : '-'}</span>
+        </div>
+      </div>
+    `;
+  };
+
+  document.getElementById('playoffBracketContainer').innerHTML = `
+    ${renderSlot('Полуфинал 1 (1 место vs 4 место)', sf1, 'Ожидается формирование сетки из Топ-4')}
+    ${renderSlot('Полуфинал 2 (2 место vs 3 место)', sf2, 'Ожидается формирование сетки из Топ-4')}
+    <div style="text-align:center; color:var(--gold); font-size:12px; font-weight:800;">⬇ ПОБЕДИТЕЛИ ВЫХОДЯТ В ФИНАЛ ⬇</div>
+    ${renderSlot('🏆 ФИНАЛ КУБКА КТЛ', finalM, 'Победитель ПФ 1 vs Победитель ПФ 2')}
+    ${renderSlot('🥉 Матч за 3-е место', thirdM, 'Проигравший ПФ 1 vs Проигравший ПФ 2')}
+  `;
+}
+
+function generatePlayoffFromTable() {
+  const standings = computeStandings();
+  if (standings.length < 4) {
+    alert('Для сетки плей-офф нужно минимум 4 команды!');
+    return;
+  }
+  // Remove old unplayed playoff matches if regenerating
+  state.matches = state.matches.filter(m => m.stage === 'group');
+  state.matches.push(
+    { id: 'm_sf1_' + Date.now(), stage: 'sf1', homeId: standings[0].team.id, awayId: standings[3].team.id, date: '', played: false, mvpId: '', events: [] },
+    { id: 'm_sf2_' + Date.now(), stage: 'sf2', homeId: standings[1].team.id, awayId: standings[2].team.id, date: '', played: false, mvpId: '', events: [] }
+  );
+  saveState();
+  alert('Полуфиналы сформированы по итогам таблицы!');
+}
+
+// RENDER MATCHES
+function filterMatches(type, btnEl) {
+  currentMatchFilter = type;
+  btnEl.parentElement.querySelectorAll('.pill-tab').forEach(b => b.classList.remove('active'));
+  btnEl.classList.add('active');
+  renderMatchesList();
+}
+
+function renderMatchCardHtml(m) {
+  const h = getTeam(m.homeId);
+  const a = getTeam(m.awayId);
+  const sc = getMatchScore(m);
+  const stageNames = { group: 'Чемпионат', sf1: '1/2 финала', sf2: '1/2 финала', third: 'За 3 место', final: 'ФИНАЛ' };
+  const mvpPlayer = m.mvpId ? getPlayer(m.mvpId) : null;
+
+  return `
+    <div class="match-row" onclick="openMatchModal('${m.id}')">
+      <div class="match-meta">
+        <span>${stageNames[m.stage] || 'Матч'} • ${formatMatchDate(m.date)}</span>
+        <span>${m.played ? '✅ Завершён' : '⏳ Ожидается'}</span>
+      </div>
+      <div class="match-teams">
+        <div class="m-team">
+          ${renderTeamAvatar(h)}
+          <span>${escapeHtml(h.name)}</span>
+        </div>
+        <div class="m-score ${m.played ? '' : 'live'}">
+          ${m.played ? `${sc.home} : ${sc.away}` : 'VS'}
+        </div>
+        <div class="m-team right">
+          <span>${escapeHtml(a.name)}</span>
+          ${renderTeamAvatar(a)}
+        </div>
+      </div>
+      ${mvpPlayer ? `<div style="margin-top:8px; font-size:11px; color:var(--gold); text-align:center;">⭐ MVP матча: <b>${escapeHtml(mvpPlayer.name)}</b></div>` : ''}
+    </div>
+  `;
+}
+
+function renderMatchesList() {
+  let list = [...state.matches];
+  if (currentMatchFilter === 'upcoming') list = list.filter(m => !m.played);
+  else if (currentMatchFilter === 'played') list = list.filter(m => m.played);
+  else if (currentMatchFilter === 'playoff') list = list.filter(m => m.stage !== 'group');
+
+  document.getElementById('matchesListContainer').innerHTML = list.length
+    ? list.map(m => renderMatchCardHtml(m)).join('')
+    : '<div class="card" style="text-align:center; color:var(--text-muted);">Матчей в этой категории пока нет</div>';
+}
+
+// MATCH MODAL (EVENTS WITH MINUTES, MVP, SOCIAL CARD GENERATOR)
+function openMatchModal(matchId) {
+  const m = state.matches.find(x => x.id === matchId);
+  if (!m) return;
+  const h = getTeam(m.homeId);
+  const a = getTeam(m.awayId);
+  const sc = getMatchScore(m);
+  const sortedEvents = [...(m.events || [])].sort((x, y) => (Number(x.min) || 0) - (Number(y.min) || 0));
+
+  const homePlayers = state.players.filter(p => p.teamId === h.id);
+  const awayPlayers = state.players.filter(p => p.teamId === a.id);
+  const allMatchPlayers = [...homePlayers, ...awayPlayers];
+
+  const eventsHtml = sortedEvents.length
+    ? sortedEvents.map(ev => {
+        const pl = getPlayer(ev.playerId);
+        const as = ev.assistId ? getPlayer(ev.assistId) : null;
+        const icon = ev.type === 'goal' ? '⚽' : (ev.type === 'yellow' ? '🟨' : '🟥');
+        return `
+          <div class="event-item">
+            <div>
+              <span class="min-badge">${ev.min}'</span>
+              <span>${icon} <b>${pl ? escapeHtml(pl.name) : 'Игрок'}</b></span>
+              ${as ? `<span style="color:var(--text-muted); font-size:11px;"> (пас: ${escapeHtml(as.name)})</span>` : ''}
+            </div>
+            ${isAdmin ? `<button class="btn btn-danger btn-sm" onclick="deleteMatchEvent('${m.id}', '${ev.id}')">✕</button>` : ''}
+          </div>
+        `;
+      }).join('')
+    : '<p style="font-size:12px; color:var(--text-muted); margin-bottom:10px;">Событий пока не зафиксировано.</p>';
+
+  const adminEditorHtml = isAdmin ? `
+    <div style="margin-top:16px; padding-top:14px; border-top:1px solid var(--border-glass);">
+      <div class="section-title"><span>✏️ Добавить событие матча</span></div>
+      <div style="display:grid; grid-template-columns: 80px 1fr; gap:8px;">
+        <div>
+          <label>Мин</label>
+          <input type="number" id="evMin" placeholder="15" min="1" max="120" value="10">
+        </div>
+        <div>
+          <label>Тип события</label>
+          <select id="evType" onchange="document.getElementById('assistSelectWrap').style.display = this.value==='goal'?'block':'none'">
+            <option value="goal">⚽ Гол</option>
+            <option value="yellow">🟨 Жёлтая карточка</option>
+            <option value="red">🟥 Красная карточка</option>
+          </select>
+        </div>
+      </div>
+      <label>Команда и игрок</label>
+      <select id="evPlayer" onchange="updateAssistOptions('${m.id}')">
+        <optgroup label="${escapeHtml(h.name)}">
+          ${homePlayers.map(p => `<option value="${p.id}" data-team="${h.id}">${escapeHtml(p.name)}</option>`).join('')}
+        </optgroup>
+        <optgroup label="${escapeHtml(a.name)}">
+          ${awayPlayers.map(p => `<option value="${p.id}" data-team="${a.id}">${escapeHtml(p.name)}</option>`).join('')}
+        </optgroup>
+      </select>
+      <div id="assistSelectWrap">
+        <label>Ассистент (необязательно)</label>
+        <select id="evAssist">
+          <option value="">— Без ассиста —</option>
+          ${allMatchPlayers.map(p => `<option value="${p.id}">${escapeHtml(p.name)}</option>`).join('')}
+        </select>
+      </div>
+      <button class="btn btn-primary btn-block" onclick="addMatchEvent('${m.id}')">+ Добавить событие</button>
+
+      <div style="margin-top:14px;">
+        <label>⭐ Игрок матча (MVP)</label>
+        <select id="matchMvpSelect" onchange="setMatchMvp('${m.id}', this.value)">
+          <option value="">— Не выбран —</option>
+          ${allMatchPlayers.map(p => `<option value="${p.id}" ${m.mvpId === p.id ? 'selected' : ''}>${escapeHtml(p.name)} (${getTeam(p.teamId).name})</option>`).join('')}
+        </select>
+      </div>
+
+      <div style="display:flex; gap:8px; margin-top:8px;">
+        <button class="btn ${m.played ? 'btn-secondary' : 'btn-gold'} btn-block" onclick="toggleMatchPlayed('${m.id}')">
+          ${m.played ? 'Вернуть в предстоящие' : '✅ Завершить матч'}
+        </button>
+        <button class="btn btn-danger" onclick="deleteMatch('${m.id}')">🗑️</button>
+      </div>
+    </div>
+  ` : '';
+
+  const socialCardBtnHtml = m.played ? `
+    <div style="margin-top:14px;">
+      <button class="btn btn-gold btn-block" onclick="generateSocialCard('${m.id}')">📸 Карточка матча для соцсетей</button>
+      <div id="socialCardResult"></div>
+    </div>
+  ` : '';
+
+  document.getElementById('matchModalContent').innerHTML = `
+    <div class="modal-header">
+      <span style="font-weight:800; font-size:15px;">Протокол матча</span>
+      <button class="close-btn" onclick="closeModal('matchModal')">✕</button>
+    </div>
+    <div class="card" style="background:rgba(6,9,19,0.6);">
+      <div style="text-align:center; font-size:11px; color:var(--text-muted); margin-bottom:8px;">${formatMatchDate(m.date)}</div>
+      <div class="match-teams">
+        <div class="m-team" onclick="closeModal('matchModal'); openTeamModal('${h.id}')" style="cursor:pointer;">
+          ${renderTeamAvatar(h, 'team-logo-lg')}
+          <span>${escapeHtml(h.name)}</span>
+        </div>
+        <div class="m-score">${sc.home} : ${sc.away}</div>
+        <div class="m-team right" onclick="closeModal('matchModal'); openTeamModal('${a.id}')" style="cursor:pointer;">
+          <span>${escapeHtml(a.name)}</span>
+          ${renderTeamAvatar(a, 'team-logo-lg')}
+        </div>
+      </div>
+      ${m.mvpId ? `<div style="text-align:center; margin-top:10px; font-size:12px; color:var(--gold);">⭐ MVP матча: <b>${escapeHtml(getPlayer(m.mvpId)?.name || '')}</b></div>` : ''}
+    </div>
+
+    <div class="section-title"><span>⏱ Хронология событий</span></div>
+    ${eventsHtml}
+    ${socialCardBtnHtml}
+    ${adminEditorHtml}
+  `;
+  document.getElementById('matchModal').classList.add('open');
+}
+
+function addMatchEvent(matchId) {
+  const m = state.matches.find(x => x.id === matchId);
+  if (!m) return;
+  const min = parseInt(document.getElementById('evMin').value, 10) || 1;
+  const type = document.getElementById('evType').value;
+  const playerSel = document.getElementById('evPlayer');
+  const playerId = playerSel.value;
+  const teamId = playerSel.options[playerSel.selectedIndex]?.getAttribute('data-team') || '';
+  const assistId = type === 'goal' ? document.getElementById('evAssist').value : '';
+
+  if (!playerId) { alert('Сначала добавьте игроков в команды!'); return; }
+
+  m.events.push({
+    id: 'ev_' + Date.now(),
+    min,
+    type,
+    teamId,
+    playerId,
+    assistId: assistId !== playerId ? assistId : ''
+  });
+  saveState();
+  openMatchModal(matchId);
+}
+
+function deleteMatchEvent(matchId, evId) {
+  const m = state.matches.find(x => x.id === matchId);
+  if (!m) return;
+  m.events = m.events.filter(e => e.id !== evId);
+  saveState();
+  openMatchModal(matchId);
+}
+
+function setMatchMvp(matchId, playerId) {
+  const m = state.matches.find(x => x.id === matchId);
+  if (!m) return;
+  m.mvpId = playerId;
+  saveState();
+  openMatchModal(matchId);
+}
+
+function toggleMatchPlayed(matchId) {
+  const m = state.matches.find(x => x.id === matchId);
+  if (!m) return;
+  m.played = !m.played;
+
+  // Auto-advance playoff semi-finals to Final & 3rd place match if both SFs are played
+  if (m.played && (m.stage === 'sf1' || m.stage === 'sf2')) {
+    const sf1 = state.matches.find(x => x.stage === 'sf1');
+    const sf2 = state.matches.find(x => x.stage === 'sf2');
+    if (sf1 && sf2 && sf1.played && sf2.played) {
+      const s1 = getMatchScore(sf1), s2 = getMatchScore(sf2);
+      const w1 = s1.home >= s1.away ? sf1.homeId : sf1.awayId;
+      const l1 = s1.home >= s1.away ? sf1.awayId : sf1.homeId;
+      const w2 = s2.home >= s2.away ? sf2.homeId : sf2.awayId;
+      const l2 = s2.home >= s2.away ? sf2.awayId : sf2.homeId;
+
+      if (!state.matches.some(x => x.stage === 'final')) {
+        state.matches.push({ id: 'm_fin_' + Date.now(), stage: 'final', homeId: w1, awayId: w2, date: '', played: false, mvpId: '', events: [] });
+      }
+      if (!state.matches.some(x => x.stage === 'third')) {
+        state.matches.push({ id: 'm_3rd_' + Date.now(), stage: 'third', homeId: l1, awayId: l2, date: '', played: false, mvpId: '', events: [] });
+      }
+    }
+  }
+
+  saveState();
+  openMatchModal(matchId);
+}
+
+function deleteMatch(matchId) {
+  if (!confirm('Удалить этот матч?')) return;
+  state.matches = state.matches.filter(x => x.id !== matchId);
+  saveState();
+  closeModal('matchModal');
+}
+
+// SOCIAL MEDIA CARD GENERATOR (CANVAS -> PNG)
+function generateSocialCard(matchId) {
+  const m = state.matches.find(x => x.id === matchId);
+  if (!m) return;
+  const h = getTeam(m.homeId);
+  const a = getTeam(m.awayId);
+  const sc = getMatchScore(m);
+
+  const canvas = document.getElementById('shareCanvas');
+  const ctx = canvas.getContext('2d');
+  const W = 1080, H = 1350;
+
+  // Background gradient
+  const grad = ctx.createLinearGradient(0, 0, W, H);
+  grad.addColorStop(0, '#070b1a');
+  grad.addColorStop(0.5, '#101d42');
+  grad.addColorStop(1, '#060913');
+  ctx.fillStyle = grad;
+  ctx.fillRect(0, 0, W, H);
+
+  // Neon glow circles
+  const rad1 = ctx.createRadialGradient(200, 200, 10, 200, 200, 420);
+  rad1.addColorStop(0, 'rgba(0, 245, 160, 0.25)');
+  rad1.addColorStop(1, 'rgba(0, 245, 160, 0)');
+  ctx.fillStyle = rad1;
+  ctx.fillRect(0, 0, W, H);
+
+  // Header Badge
+  ctx.fillStyle = '#00f5a0';
+  ctx.font = 'bold 34px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('⚽ КТЛ ЛИГА • FULL TIME', W / 2, 110);
+
+  ctx.fillStyle = '#8c9ac4';
+  ctx.font = '26px sans-serif';
+  ctx.fillText(formatMatchDate(m.date), W / 2, 155);
+
+  // Score Box Card
+  ctx.fillStyle = 'rgba(255, 255, 255, 0.06)';
+  roundRect(ctx, 70, 210, W - 140, 360, 36);
+  ctx.fill();
+  ctx.strokeStyle = 'rgba(0, 245, 160, 0.45)';
+  ctx.lineWidth = 3;
+  ctx.stroke();
+
+  // Team Names & Score
+  ctx.fillStyle = '#ffffff';
+  ctx.font = 'bold 42px sans-serif';
+  ctx.fillText(h.name, 270, 350);
+  ctx.fillText(a.name, W - 270, 350);
+
+  ctx.fillStyle = '#00f5a0';
+  ctx.font = '900 110px sans-serif';
+  ctx.fillText(`${sc.home} : ${sc.away}`, W / 2, 430);
+
+  // Goalscorers
+  const goals = (m.events || [])
+    .filter(e => e.type === 'goal')
+    .sort((x, y) => (Number(x.min) || 0) - (Number(y.min) || 0));
+
+  ctx.fillStyle = '#ffd166';
+  ctx.font = 'bold 30px sans-serif';
+  ctx.fillText('АВТОРЫ ГОЛОВ', W / 2, 650);
+
+  ctx.fillStyle = '#f4f7ff';
+  ctx.font = '32px sans-serif';
+  let yPos = 715;
+  if (goals.length === 0) {
+    ctx.fillStyle = '#8c9ac4';
+    ctx.fillText('Голов в матче не забито', W / 2, yPos);
+  } else {
+    goals.slice(0, 10).forEach(g => {
+      const pl = getPlayer(g.playerId);
+      const tm = getTeam(g.teamId);
+      ctx.fillText(`⚽ ${g.min}'  ${pl ? pl.name : 'Игрок'} (${tm.name})`, W / 2, yPos);
+      yPos += 52;
+    });
+  }
+
+  // MVP Footer
+  if (m.mvpId) {
+    const mvp = getPlayer(m.mvpId);
+    if (mvp) {
+      ctx.fillStyle = 'rgba(255, 209, 102, 0.14)';
+      roundRect(ctx, 140, 1140, W - 280, 95, 24);
+      ctx.fill();
+      ctx.fillStyle = '#ffd166';
+      ctx.font = 'bold 34px sans-serif';
+      ctx.fillText(`⭐ MVP МАТЧА: ${mvp.name}`, W / 2, 1200);
+    }
+  }
+
+  ctx.fillStyle = '#8c9ac4';
+  ctx.font = '24px sans-serif';
+  ctx.fillText('ktl-liga • Официальная статистика турнира', W / 2, 1295);
+
+  const dataUrl = canvas.toDataURL('image/png');
+  const fileName = `KTL_Match_${h.name}_vs_${a.name}.png`.replace(/\s+/g, '_');
+
+  // If inside Android APK WebView, save straight to Gallery too!
+  if (window.AndroidNative && typeof window.AndroidNative.saveImage === 'function') {
+    window.AndroidNative.saveImage(dataUrl, fileName);
+  }
+
+  document.getElementById('socialCardResult').innerHTML = `
+    <p style="font-size:12px; color:var(--accent); margin-top:10px; text-align:center;">
+      Карточка готова! Зажмите картинку, чтобы сохранить или поделиться:
+    </p>
+    <img src="${dataUrl}" class="social-preview-img" alt="Match Card">
+  `;
+}
+
+function roundRect(ctx, x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y, x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x, y + h, r);
+  ctx.arcTo(x, y + h, x, y, r);
+  ctx.arcTo(x, y, x + w, y, r);
+  ctx.closePath();
+}
+
+// LEADERS & TEAMS TAB
+function switchSubLeaders(sub, btnEl) {
+  currentLeaderTab = sub;
+  btnEl.parentElement.querySelectorAll('.pill-tab').forEach(b => b.classList.remove('active'));
+  btnEl.classList.add('active');
+  renderLeaders();
+}
+
+function renderLeaders() {
+  const container = document.getElementById('leadersContainer');
+  const suspended = getSuspendedPlayerIds();
+
+  if (currentLeaderTab === 'teams') {
+    container.innerHTML = state.teams.map(t => {
+      const count = state.players.filter(p => p.teamId === t.id).length;
+      return `
+        <div class="player-row" onclick="openTeamModal('${t.id}')">
+          <div style="display:flex; align-items:center; gap:10px;">
+            ${renderTeamAvatar(t)}
+            <div>
+              <div style="font-weight:700; font-size:14px;">${escapeHtml(t.name)}</div>
+              <div style="font-size:11px; color:var(--text-muted);">Игроков в заявке: ${count}</div>
+            </div>
+          </div>
+          <span style="color:var(--accent); font-size:13px; font-weight:700;">Состав →</span>
+        </div>
+      `;
+    }).join('');
+    return;
+  }
+
+  const enriched = state.players.map(p => ({
+    player: p,
+    team: getTeam(p.teamId),
+    stats: computePlayerStats(p.id)
+  }));
+
+  const metricKey = currentLeaderTab === 'goals' ? 'goals' : (currentLeaderTab === 'assists' ? 'assists' : 'mvps');
+  const metricLabel = currentLeaderTab === 'goals' ? 'голов' : (currentLeaderTab === 'assists' ? 'пасов' : 'MVP');
+
+  const sorted = enriched
+    .filter(x => x.stats[metricKey] > 0)
+    .sort((a, b) => b.stats[metricKey] - a.stats[metricKey]);
+
+  if (sorted.length === 0) {
+    container.innerHTML = `<div class="card" style="text-align:center; color:var(--text-muted);">Пока нет данных в категории «${metricLabel}»</div>`;
+    return;
+  }
+
+  container.innerHTML = sorted.map((item, i) => `
+    <div class="player-row" onclick="openPlayerModal('${item.player.id}')">
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span class="pos-pill pos-${i + 1}">${i + 1}</span>
+        <div>
+          <div style="font-weight:700; font-size:13px;">
+            ${escapeHtml(item.player.name)} ${suspended.has(item.player.id) ? '🚫' : ''}
+          </div>
+          <div style="font-size:11px; color:var(--text-muted);">${escapeHtml(item.team.name)} • ${item.player.grade} кл.</div>
+        </div>
+      </div>
+      <div style="font-weight:900; font-size:16px; color:${metricKey === 'mvps' ? 'var(--gold)' : 'var(--accent)'};">
+        ${item.stats[metricKey]} <span style="font-size:10px; font-weight:600; color:var(--text-muted);">${metricLabel}</span>
+      </div>
+    </div>
+  `).join('');
+}
+
+// PLAYER PAGE MODAL
+function openPlayerModal(playerId) {
+  const p = getPlayer(playerId);
+  if (!p) return;
+  const team = getTeam(p.teamId);
+  const st = computePlayerStats(p.id);
+  const suspended = getSuspendedPlayerIds().has(p.id);
+
+  document.getElementById('playerModalContent').innerHTML = `
+    <div class="modal-header">
+      <span style="font-weight:800; font-size:15px;">Карточка игрока</span>
+      <button class="close-btn" onclick="closeModal('playerModal')">✕</button>
+    </div>
+    <div class="card card-hero" style="text-align:center;">
+      <div style="display:flex; justify-content:center; margin-bottom:8px;">
+        ${renderTeamAvatar(team, 'team-logo-lg')}
+      </div>
+      <h2 style="font-size:20px;">${escapeHtml(p.name)} ${suspended ? '🚫' : ''}</h2>
+      <p style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+        ${escapeHtml(team.name)} • ${p.grade} класс • Уровень силы: ${p.level}
+      </p>
+      ${suspended ? `<div style="margin-top:8px; display:inline-block; background:rgba(255,77,109,0.18); color:var(--danger); padding:4px 10px; border-radius:99px; font-size:11px; font-weight:700;">🚫 Дисквалифицирован на следующий матч</div>` : ''}
+    </div>
+
+    <div class="stat-grid-4">
+      <div class="stat-box"><div class="num">${st.matches}</div><div class="lbl">Матчи</div></div>
+      <div class="stat-box"><div class="num">${st.goals}</div><div class="lbl">Голы</div></div>
+      <div class="stat-box"><div class="num">${st.assists}</div><div class="lbl">Пасы</div></div>
+      <div class="stat-box"><div class="num" style="color:var(--gold);">${st.mvps}</div><div class="lbl">⭐ MVP</div></div>
+    </div>
+
+    <div class="card" style="display:flex; justify-content:space-around; text-align:center;">
+      <div>
+        <div style="font-size:18px; font-weight:800; color:var(--warning);">🟨 ${st.yellows}</div>
+        <div style="font-size:11px; color:var(--text-muted);">Жёлтые карточки</div>
+      </div>
+      <div>
+        <div style="font-size:18px; font-weight:800; color:var(--danger);">🟥 ${st.reds}</div>
+        <div style="font-size:11px; color:var(--text-muted);">Красные карточки</div>
+      </div>
+    </div>
+  `;
+  document.getElementById('playerModal').classList.add('open');
+}
+
+// TEAM ROSTER & LOGO UPLOAD MODAL
+function openTeamModal(teamId) {
+  const team = getTeam(teamId);
+  const roster = state.players.filter(p => p.teamId === teamId).sort((a, b) => a.level - b.level);
+  const suspended = getSuspendedPlayerIds();
+
+  document.getElementById('teamModalContent').innerHTML = `
+    <div class="modal-header">
+      <span style="font-weight:800; font-size:15px;">Профиль команды</span>
+      <button class="close-btn" onclick="closeModal('teamModal')">✕</button>
+    </div>
+    <div class="card" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        ${renderTeamAvatar(team, 'team-logo-lg')}
+        <div>
+          <h3 style="font-size:18px;">${escapeHtml(team.name)}</h3>
+          <span style="font-size:12px; color:var(--text-muted);">Игроков: ${roster.length}</span>
+        </div>
+      </div>
+      <label class="btn btn-secondary btn-sm" style="margin:0; cursor:pointer;">
+        📷 Загрузить логотип
+        <input type="file" accept="image/*" style="display:none;" onchange="handleLogoUpload('${team.id}', this)">
+      </label>
+    </div>
+
+    <div class="section-title"><span>📋 Состав команды</span></div>
+    ${roster.length ? roster.map(p => {
+      const st = computePlayerStats(p.id);
+      return `
+        <div class="player-row" onclick="closeModal('teamModal'); openPlayerModal('${p.id}')">
+          <div>
+            <div style="font-weight:700; font-size:13px;">${escapeHtml(p.name)} ${suspended.has(p.id) ? '🚫' : ''}</div>
+            <div style="font-size:11px; color:var(--text-muted);">${p.grade} класс • Ур. ${p.level}</div>
+          </div>
+          <div style="font-size:12px; color:var(--accent); font-weight:700;">
+            ⚽ ${st.goals} • 👟 ${st.assists} ${st.mvps ? `• ⭐ ${st.mvps}` : ''}
+          </div>
+        </div>
+      `;
+    }).join('') : '<p style="color:var(--text-muted); font-size:12px;">В команде пока нет игроков.</p>'}
+  `;
+  document.getElementById('teamModal').classList.add('open');
+}
+
+// AUTO-CROP & RESIZE TEAM LOGO TO 160x160 SQUARE
+function handleLogoUpload(teamId, inputEl) {
+  const file = inputEl.files && inputEl.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      const size = 160;
+      const canvas = document.createElement('canvas');
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext('2d');
+
+      const minSide = Math.min(img.width, img.height);
+      const sx = (img.width - minSide) / 2;
+      const sy = (img.height - minSide) / 2;
+      ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, size, size);
+
+      const team = getTeam(teamId);
+      if (team) {
+        team.logo = canvas.toDataURL('image/jpeg', 0.85);
+        saveState();
+        openTeamModal(teamId);
+      }
+    };
+    img.src = e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// BALANCED DRAFT BY LEVELS (1-8)
+function runBalancedDraft() {
+  const raw = document.getElementById('draftInput').value.trim();
+  if (!raw) { alert('Вставьте список игроков!'); return; }
+  if (state.teams.length === 0) { alert('Сначала создайте команды!'); return; }
+
+  const lines = raw.split('\n').map(l => l.trim()).filter(Boolean);
+  const parsed = [];
+  lines.forEach(line => {
+    const parts = line.split(',').map(s => s.trim());
+    if (parts.length >= 1 && parts[0]) {
+      const name = parts[0];
+      const grade = parts[1] || '9';
+      let level = parseInt(parts[2], 10);
+      if (isNaN(level) || level < 1) level = 1;
+      if (level > 8) level = 8;
+      parsed.push({ name, grade, level });
+    }
+  });
+
+  if (parsed.length === 0) { alert('Не удалось распознать ни одной строки.'); return; }
+
+  const mode = document.getElementById('draftMode').value;
+  if (mode === 'replace') {
+    state.players = [];
+  }
+
+  // Group by level 1..8, shuffle within each level, deal round-robin across teams
+  const teamIds = state.teams.map(t => t.id);
+  let teamCursor = 0;
+
+  for (let lvl = 1; lvl <= 8; lvl++) {
+    const bucket = parsed.filter(p => p.level === lvl);
+    // Fisher-Yates shuffle for fairness
+    for (let i = bucket.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bucket[i], bucket[j]] = [bucket[j], bucket[i]];
+    }
+    bucket.forEach((p, idx) => {
+      const assignedTeamId = teamIds[teamCursor % teamIds.length];
+      teamCursor++;
+      state.players.push({
+        id: 'pl_' + Date.now() + '_' + lvl + '_' + idx + '_' + Math.random().toString(36).slice(2, 5),
+        name: p.name,
+        grade: p.grade,
+        level: p.level,
+        teamId: assignedTeamId
+      });
+    });
+  }
+
+  document.getElementById('draftInput').value = '';
+  saveState();
+  alert(`Жеребьёвка завершена! Распределено игроков: ${parsed.length} по ${teamIds.length} командам.`);
+}
+
+// ADMIN HELPERS
+function renderAdminForms() {
+  const opts = state.teams.map(t => `<option value="${t.id}">${escapeHtml(t.name)}</option>`).join('');
+  document.getElementById('newMatchHome').innerHTML = opts;
+  document.getElementById('newMatchAway').innerHTML = opts;
+  if (state.teams.length > 1) {
+    document.getElementById('newMatchAway').selectedIndex = 1;
+  }
+
+  document.getElementById('adminTeamsList').innerHTML = state.teams.map(t => `
+    <div class="event-item">
+      <div style="display:flex; align-items:center; gap:8px;">
+        ${renderTeamAvatar(t, 'team-logo-sm')}
+        <b>${escapeHtml(t.name)}</b>
+      </div>
+      <div style="display:flex; gap:6px;">
+        <button class="btn btn-secondary btn-sm" onclick="openTeamModal('${t.id}')">Лого / Состав</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteTeam('${t.id}')">✕</button>
+      </div>
+    </div>
+  `).join('');
+
+  document.getElementById('adminNewsManage').innerHTML = state.news.map(n => `
+    <div class="event-item">
+      <span>${escapeHtml(n.title)}</span>
+      <button class="btn btn-danger btn-sm" onclick="deleteNews('${n.id}')">✕</button>
+    </div>
+  `).join('');
+}
+
+function createMatch() {
+  const stage = document.getElementById('newMatchStage').value;
+  const homeId = document.getElementById('newMatchHome').value;
+  const awayId = document.getElementById('newMatchAway').value;
+  const date = document.getElementById('newMatchDate').value;
+
+  if (homeId === awayId) { alert('Выберите две разные команды!'); return; }
+
+  state.matches.unshift({
+    id: 'm_' + Date.now(),
+    stage,
+    homeId,
+    awayId,
+    date,
+    played: false,
+    mvpId: '',
+    events: []
+  });
+  saveState();
+  alert('Матч создан!');
+  switchTab('matches');
+}
+
+function addNewTeam() {
+  const inp = document.getElementById('newTeamName');
+  const name = inp.value.trim();
+  if (!name) return;
+  state.teams.push({ id: 't_' + Date.now(), name, logo: '' });
+  inp.value = '';
+  saveState();
+}
+
+function deleteTeam(teamId) {
+  if (!confirm('Удалить команду?')) return;
+  state.teams = state.teams.filter(t => t.id !== teamId);
+  saveState();
+}
+
+function addNews() {
+  const title = document.getElementById('newsTitleInput').value.trim();
+  const body = document.getElementById('newsBodyInput').value.trim();
+  if (!title || !body) { alert('Заполните заголовок и текст новости!'); return; }
+  const today = new Date().toLocaleDateString('ru-RU', { day: 'numeric', month: 'long' });
+  state.news.unshift({ id: 'n_' + Date.now(), date: today, title, body });
+  document.getElementById('newsTitleInput').value = '';
+  document.getElementById('newsBodyInput').value = '';
+  saveState();
+  alert('Новость опубликована!');
+}
+
+function deleteNews(id) {
+  state.news = state.news.filter(n => n.id !== id);
+  saveState();
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+
+function escapeHtml(str) {
+  return String(str || '').replace(/[&<>"']/g, m => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+  }[m]));
+}
+
+function renderAll() {
+  renderHome();
+  renderTableAndPlayoff();
+  renderMatchesList();
+  renderLeaders();
+  renderAdminForms();
+}
+
+renderAll();
+</script>
+</body>
+</html>
